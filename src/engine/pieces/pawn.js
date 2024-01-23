@@ -10,17 +10,18 @@ export default class Pawn extends Piece {
   getAvailableMoves(board) {
     let location = board.findPiece(this);
     const getTwoMoves = () => {
-      let firstMove,secondMove;
-      if(this.player === Player.WHITE){
+      let firstMove, secondMove;
+      if (this.player === Player.WHITE) {
         firstMove = Square.at(location.row + 1, location.col);
-        secondMove = Square.at(location.row + 2, location.col)
-      }
-      else{
+        secondMove = Square.at(location.row + 2, location.col);
+      } else {
         firstMove = Square.at(location.row - 1, location.col);
-        secondMove =  Square.at(location.row - 2, location.col)
+        secondMove = Square.at(location.row - 2, location.col);
       }
       //If the firstMove is allowed then only the pawn can move
-      return board.getPiece(firstMove)!==undefined?[]:[firstMove,secondMove]
+      return board.getPiece(firstMove) !== undefined
+        ? []
+        : [firstMove, secondMove];
     };
     const getOneMove = () => {
       return this.player === Player.WHITE
@@ -44,7 +45,6 @@ export default class Pawn extends Piece {
     return availableMoves;
   }
 }
-
 
 /* Initial Old Code */
 
