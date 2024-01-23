@@ -12,17 +12,34 @@ export default class Rook extends Piece {
     const location = board.findPiece(this);
     let rookMoves = [];
 
-    for (let i = 0; i < GameSettings.BOARD_SIZE; i++) {
-      //Get Horizontal Moves
-      if (i !== location.col) {
-        rookMoves.push(Square.at(location.row, i));
-      }
-      //Get Vertical Moves
-      if (i !== location.row) {
-        rookMoves.push(Square.at(i, location.col));
-      }
+    const currentRow = location.row;
+    const currentCol = location.col
+    let horizontalRookMoves=[],verticalRookMoves=[];
+    for(let i = currentRow+1;i<GameSettings.BOARD_SIZE;i++){
+      const rookMove = Square.at(i,location.col);
+      if(board.getPiece(rookMove)===undefined) horizontalRookMoves.push(rookMove);
+      else break;
     }
-
-    return rookMoves;
+    for(let i= currentRow-1;i>=0;i--){
+      const rookMove = Square.at(i,location.col);
+      if(board.getPiece(rookMove)===undefined) horizontalRookMoves.push(rookMove);
+      else break;
+    }
+    for(let i = currentCol+1;i<GameSettings.BOARD_SIZE;i++){
+      const rookMove = Square.at(location.row,i);
+      if(board.getPiece(rookMove)===undefined) horizontalRookMoves.push(rookMove);
+      else break;
+    }
+    for(let i= currentCol-1;i>=0;i--){
+      const rookMove = Square.at(location.row,i);
+      if(board.getPiece(rookMove)===undefined) horizontalRookMoves.push(rookMove);
+      else break;
+    }
+    // }
+    //Rook Should not move through friendly pieces and opposint pieces
+    //const validMoves = rookMoves.filter(loc=>board.getPiece(loc)!==undefined);
+    const validMoves=[...horizontalRookMoves,...verticalRookMoves]
+    //console.log("--->",validMoves)
+    return validMoves;
   }
 }
