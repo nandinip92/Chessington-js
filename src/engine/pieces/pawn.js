@@ -19,50 +19,56 @@ export default class Pawn extends Piece {
     )
       return [];
 
-    let diagonalMove;
-    let opponentPeice = undefined;
+    let pawnMoveDirections;
     if (this.player === Player.WHITE) {
-      // Pawn can move diagonally in two directions if it is between col 1-6
-      // for col 0 it can only move to its diagonal right
-      //for col 1 it can only move  to its diagonal left
-      const diagonalRight = Square.at(location.row + 1, location.col + 1);
-      const diagonalLeft = Square.at(location.row + 1, location.col - 1);
-      if (location.col === 0) diagonalMove = [diagonalRight];
-      else if (location.col === 7) diagonalMove = [diagonalLeft];
-      else diagonalMove = [diagonalRight, diagonalLeft];
-      opponentPeice = Player.BLACK;
+      pawnMoveDirections = {
+        dright: { row: 1, col: 1 },
+        dleft: { row: 1, col: -1 },
+        front: { row: 1, col: 0 },
+      };
     } else {
-      const diagonalRight = Square.at(location.row - 1, location.col + 1);
-      const diagonalLeft = Square.at(location.row - 1, location.col - 1);
-      if (location.col === 0) diagonalMove = [diagonalRight];
-      else if (location.col === 7) diagonalMove = [diagonalLeft];
-      else diagonalMove = [diagonalRight, diagonalLeft];
-      opponentPeice = Player.WHITE;
+      pawnMoveDirections = {
+        dright: { row: -1, col: 1 },
+        dleft: { row: -1, col: -1 },
+        front: { row: -1, col: 0 },
+      };
     }
+    const getMoveSquare = (direction) => {
+      const newRow = location.row + direction.row;
+      const newCol = location.col + direction.col;
+      return [Square.at(newRow, newCol)];
+    };
+    // Pawn can move diagonally in two directions if it is between col 1-6
+    // for col 0 it can only move to its diagonal right
+    //for col 1 it can only move  to its diagonal left
+    let diagonalMoves;
+    if (location.col === 0)
+      diagonalMoves = getMoveSquare(pawnMoveDirections.dright);
+    else if (location === 7)
+      diagonalMoves = getMoveSquare(pawnMoveDirections.dleft);
+    else
+      diagonalMoves = [
+        ...getMoveSquare(pawnMoveDirections.dright),
+        ...getMoveSquare(pawnMoveDirections.dleft),
+      ];
 
-    // This diagonal  Move is only valid if there is an Opposing peice present in that square
-    // Checking if the diagonal move has the opposing peice and opposing peice should not be King
-    const checkPeice = (loc) => {
+    const opponentPeice =
+      this.player === Player.WHITE ? Player.BLACK : Player.WHITE;
+    const canMakeDiagonalMove = (loc) => {
       const peice = board.getPiece(loc);
-
       if (
         peice !== undefined &&
         peice.player == opponentPeice &&
-        ! (peice instanceof King)
+        !(peice instanceof King)
       ) {
         return peice;
       }
     };
-    const diagonalsWithOpposingPiece = diagonalMove.filter((loc) =>
-      checkPeice(loc)
+    const validDiagonalMoves = diagonalMoves.filter((loc) =>
+      canMakeDiagonalMove(loc)
     );
 
-    if (diagonalsWithOpposingPiece.length !== 0)
-      return diagonalsWithOpposingPiece;
-    //console.log("----->", diagonalsWithOpposingPiece);
-    // console.log(board.getPiece(Square.at(4, 4)));
-    // const x = board.getPiece(Square.at(4, 4));
-    // console.log(x.player === Player.BLACK);
+    if (validDiagonalMoves.length !== 0) return validDiagonalMoves;
 
     const getTwoMoves = () => {
       let firstMove, secondMove;
