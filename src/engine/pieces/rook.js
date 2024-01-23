@@ -10,18 +10,19 @@ export default class Rook extends Piece {
   getAvailableMoves(board) {
     //return new Array(0);
     const location = board.findPiece(this);
-    let availableMoves = [];
+    let rookMoves = [];
 
     for (let i = 0; i < GameSettings.BOARD_SIZE; i++) {
       //Get Horizontal Moves
       if (i !== location.col) {
-        availableMoves.push(Square.at(location.row, i));
+        rookMoves.push(Square.at(location.row, i));
       }
       //Get Vertical Moves
       if (i !== location.row) {
-        availableMoves.push(Square.at(i, location.col));
+        rookMoves.push(Square.at(i, location.col));
       }
     }
-    return availableMoves;
+
+    return rookMoves;
   }
 }
