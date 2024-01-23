@@ -12,7 +12,8 @@ export default class Rook extends Piece {
     const location = board.findPiece(this);
     const currentRow = location.row;
     const currentCol = location.col;
-
+    
+    //Rook Should not move through friendly pieces and opposite pieces
     const getForwardMoves = (direction) => {
       const forwardMoves = [];
       const currentPosition = direction === "V" ? currentRow : currentCol;
@@ -42,8 +43,8 @@ export default class Rook extends Piece {
       return backwardMoves;
     };
 
-    //Rook Should not move through friendly pieces and opposint pieces
-    //const validMoves = rookMoves.filter(loc=>board.getPiece(loc)!==undefined);
+    
+
     const verticalRookMoves = [
       ...getForwardMoves("V"),
       ...getBackwardMoves("V"),
