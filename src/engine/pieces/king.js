@@ -37,9 +37,9 @@ export default class King extends Piece {
     const getSquare = (direction) => {
       const newRow = location.row + direction.row;
       const newCol = location.col + direction.col;
+      const newSquare = Square.at(newRow, newCol);
 
-      if (isValidMove(newRow, newCol)) {
-        const newSquare = Square.at(newRow, newCol);
+      if (isValidMove(newRow, newCol)&& board.getPiece(newSquare)===undefined) {
         return newSquare;
       }
     };
