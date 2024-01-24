@@ -28,6 +28,10 @@ export default class King extends Piece {
         col < GameSettings.BOARD_SIZE
       );
     };
+
+    //Following is the function used in Map to check if the move is valid or not
+    //if it is valid it will return Square 
+    //else it will return undefined
     const getSquare = (direction) => {
       const newRow = location.row + direction.row;
       const newCol = location.col + direction.col;
@@ -37,9 +41,11 @@ export default class King extends Piece {
         return newSquare;
       }
     };
+
+    //Checking if the King can move in all the possible directions
     const validKingMoves = Object.values(possibleKingMoves)
       .map((direction) => getSquare(direction))
-      .filter((sq) => sq !== undefined);
+      .filter((sq) => sq !== undefined);    //filtering out all the undefined values
 
     return validKingMoves;
   }
