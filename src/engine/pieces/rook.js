@@ -18,7 +18,7 @@ export default class Rook extends Piece {
       this.player === Player.WHITE ? Player.BLACK : Player.WHITE;
 
     //Rook Should not move through friendly pieces and opposite pieces
-    
+
     const getForwardMoves = (direction) => {
       const forwardMoves = [];
       const currentPosition = direction === "V" ? currentRow : currentCol;
@@ -27,10 +27,10 @@ export default class Rook extends Piece {
           direction === "V"
             ? Square.at(i, currentCol)
             : Square.at(currentRow, i);
+        const boardPiece = board.getPiece(rookMove);
 
-        if (board.getPiece(rookMove) === undefined) forwardMoves.push(rookMove);
+        if (boardPiece === undefined) forwardMoves.push(rookMove);
         else {
-          const boardPiece = board.getPiece(rookMove);
           if (
             boardPiece.player === opponentPiece &&
             !(boardPiece instanceof King)
@@ -50,10 +50,10 @@ export default class Rook extends Piece {
           direction === "V"
             ? Square.at(i, currentCol)
             : Square.at(currentRow, i);
-        if (board.getPiece(rookMove) === undefined)
-          backwardMoves.push(rookMove);
+        const boardPiece = board.getPiece(rookMove);
+
+        if (boardPiece === undefined) backwardMoves.push(rookMove);
         else {
-          const boardPiece = board.getPiece(rookMove);
           if (
             boardPiece.player === opponentPiece &&
             !(boardPiece instanceof King)
