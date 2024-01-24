@@ -9,14 +9,7 @@ export default class Bishop extends Piece {
   }
 
   getAvailableMoves(board) {
-    //return new Array(0);
     const location = board.findPiece(this);
-    const bishopDirections = {
-      topRight: { row: 1, col: 1 },
-      topLeft: { row: 1, col: -1 },
-      bottomRight: { row: -1, col: 1 },
-      bottomLeft: { row: -1, col: -1 },
-    };
     const currentRow=location.row;
     const currentCol=location.col;
     const isValidMove=(row,col)=>{
@@ -32,6 +25,7 @@ export default class Bishop extends Piece {
         if(boardPiece===undefined) bishopMoves.push(newSquare);
         else break;
     }
+
      //Iterating diagonally towards top-left topRight: { row: +1, col: -1 }
      for(let i =1;isValidMove(currentRow+i,currentCol-i);i++){
         const newRow = currentRow+i;
