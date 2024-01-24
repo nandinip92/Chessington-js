@@ -20,6 +20,8 @@ export default class King extends Piece {
       bottomRight: { row: -1, col: 1 },
       bottomLeft: { row: -1, col: -1 },
     };
+
+    //Arrow function to check if the give Row and Column is on the Board
     const isValidMove = (row, col) => {
       return (
         row >= 0 &&
@@ -30,7 +32,7 @@ export default class King extends Piece {
     };
 
     //Following is the function used in Map to check if the move is valid or not
-    //if it is valid it will return Square 
+    //if it is valid it will return Square
     //else it will return undefined
     const getSquare = (direction) => {
       const newRow = location.row + direction.row;
@@ -45,7 +47,7 @@ export default class King extends Piece {
     //Checking if the King can move in all the possible directions
     const validKingMoves = Object.values(possibleKingMoves)
       .map((direction) => getSquare(direction))
-      .filter((sq) => sq !== undefined);    //filtering out all the undefined values
+      .filter((sq) => sq !== undefined); //filtering out all the undefined values
 
     return validKingMoves;
   }
