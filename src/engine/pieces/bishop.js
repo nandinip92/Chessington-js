@@ -22,9 +22,9 @@ export default class Bishop extends Piece {
       );
     };
     let bishopMoves = [];
-    const oppositePiece =
-      this.player === Player.WHITE ? Player.BLACK : Player.WHITE;
-    
+    //const oppositePiece =
+    this.player === Player.WHITE ? Player.BLACK : Player.WHITE;
+
     //Iterating diagonally towards top-right, topRight: { row: +1, col: +1 }
     // Bishop pass through friendly pieces or opposing pieces
     // Bishop can take opposing pieces
@@ -35,10 +35,7 @@ export default class Bishop extends Piece {
       const boardPiece = board.getPiece(newSquare);
       if (boardPiece === undefined) bishopMoves.push(newSquare);
       else {
-        if (
-          boardPiece.player === oppositePiece &&
-          !(boardPiece instanceof King)
-        )
+        if (boardPiece.player !== this.player && !(boardPiece instanceof King))
           bishopMoves.push(newSquare);
         break;
       }
@@ -54,10 +51,7 @@ export default class Bishop extends Piece {
       const boardPiece = board.getPiece(newSquare);
       if (boardPiece === undefined) bishopMoves.push(newSquare);
       else {
-        if (
-          boardPiece.player === oppositePiece &&
-          !(boardPiece instanceof King)
-        )
+        if (boardPiece.player !== this.player && !(boardPiece instanceof King))
           bishopMoves.push(newSquare);
         break;
       }
@@ -72,10 +66,7 @@ export default class Bishop extends Piece {
       const boardPiece = board.getPiece(newSquare);
       if (boardPiece === undefined) bishopMoves.push(newSquare);
       else {
-        if (
-          boardPiece.player === oppositePiece &&
-          !(boardPiece instanceof King)
-        )
+        if (boardPiece.player !== this.player && !(boardPiece instanceof King))
           bishopMoves.push(newSquare);
         break;
       }
@@ -90,10 +81,7 @@ export default class Bishop extends Piece {
       const boardPiece = board.getPiece(newSquare);
       if (boardPiece === undefined) bishopMoves.push(newSquare);
       else {
-        if (
-          boardPiece.player === oppositePiece &&
-          !(boardPiece instanceof King)
-        )
+        if (boardPiece.player !== this.player && !(boardPiece instanceof King))
           bishopMoves.push(newSquare);
         break;
       }
