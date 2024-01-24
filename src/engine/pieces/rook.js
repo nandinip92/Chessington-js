@@ -18,6 +18,7 @@ export default class Rook extends Piece {
       this.player === Player.WHITE ? Player.BLACK : Player.WHITE;
 
     //Rook Should not move through friendly pieces and opposite pieces
+    
     const getForwardMoves = (direction) => {
       const forwardMoves = [];
       const currentPosition = direction === "V" ? currentRow : currentCol;
@@ -30,7 +31,11 @@ export default class Rook extends Piece {
         if (board.getPiece(rookMove) === undefined) forwardMoves.push(rookMove);
         else {
           const boardPiece = board.getPiece(rookMove);
-          if (boardPiece.player === opponentPiece && !(boardPiece instanceof King)) forwardMoves.push(rookMove);
+          if (
+            boardPiece.player === opponentPiece &&
+            !(boardPiece instanceof King)
+          )
+            forwardMoves.push(rookMove);
           break;
         }
       }
@@ -47,11 +52,15 @@ export default class Rook extends Piece {
             : Square.at(currentRow, i);
         if (board.getPiece(rookMove) === undefined)
           backwardMoves.push(rookMove);
-          else{
-            const boardPiece = board.getPiece(rookMove);
-            if(boardPiece.player===opponentPiece && !(boardPiece instanceof King)) backwardMoves.push(rookMove);
-            break;
-          };
+        else {
+          const boardPiece = board.getPiece(rookMove);
+          if (
+            boardPiece.player === opponentPiece &&
+            !(boardPiece instanceof King)
+          )
+            backwardMoves.push(rookMove);
+          break;
+        }
       }
       return backwardMoves;
     };
@@ -78,23 +87,23 @@ export default class Rook extends Piece {
 // for (let i = currentRow + 1; i < GameSettings.BOARD_SIZE; i++) {
 //   const rookMove = Square.at(i, location.col);
 //   if (board.getPiece(rookMove) === undefined)
-//     horizontalRookMoves.push(rookMove);
+//     verticalRookMoves.push(rookMove);
 //   else break;
 // }
 // for (let i = currentRow - 1; i >= 0; i--) {
 //   const rookMove = Square.at(i, location.col);
 //   if (board.getPiece(rookMove) === undefined)
-//     horizontalRookMoves.push(rookMove);
+//     verticalRookMoves.push(rookMove);
 //   else break;
 // }
 // for (let i = currentCol + 1; i < GameSettings.BOARD_SIZE; i++) {
 //   const rookMove = Square.at(location.row, i);
-//   if (board.getPiece(rookMove) === undefined) verticalRookMoves.push(rookMove);
+//   if (board.getPiece(rookMove) === undefined) horizontalRookMoves.push(rookMove);
 //   else break;
 // }
 // for (let i = currentCol - 1; i >= 0; i--) {
 //   const rookMove = Square.at(location.row, i);
-//   if (board.getPiece(rookMove) === undefined) verticalRookMoves.push(rookMove);
+//   if (board.getPiece(rookMove) === undefined) horizontalRookMoves.push(rookMove);
 //   else break;
 // }
 
