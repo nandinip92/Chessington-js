@@ -60,7 +60,7 @@ export default class Pawn extends Piece {
       const peice = board.getPiece(loc);
       if (
         peice !== undefined &&
-        peice.player == opponentPeice &&
+        peice.player === opponentPeice &&
         !(peice instanceof King)
       ) {
         return peice;
