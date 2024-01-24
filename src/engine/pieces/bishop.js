@@ -24,7 +24,8 @@ export default class Bishop extends Piece {
     let bishopMoves = [];
     const oppositePiece =
       this.player === Player.WHITE ? Player.BLACK : Player.WHITE;
-    //Iterating diagonally towards top-right topRight: { row: +1, col: +1 }
+    
+    //Iterating diagonally towards top-right, topRight: { row: +1, col: +1 }
     // Bishop pass through friendly pieces or opposing pieces
     // Bishop can take opposing pieces
     for (let i = 1; isValidMove(currentRow + i, currentCol + i); i++) {
@@ -43,7 +44,7 @@ export default class Bishop extends Piece {
       }
     }
 
-    //Iterating diagonally towards top-left topRight: { row: +1, col: -1 }
+    //Iterating diagonally towards top-left, topLeft: { row: +1, col: -1 }
     // Bishop pass through friendly pieces or opposing pieces
     // Bishop can take opposing pieces
     for (let i = 1; isValidMove(currentRow + i, currentCol - i); i++) {
@@ -61,7 +62,7 @@ export default class Bishop extends Piece {
         break;
       }
     }
-    // Iterating diagonally towards top-left bottomRight: { row: -1, col: +1 }
+    // Iterating diagonally towards bottom-right, bottomRight: { row: -1, col: +1 }
     // Bishop pass through friendly pieces or opposing pieces
     // Bishop can take opposing pieces
     for (let i = 1; isValidMove(currentRow - i, currentCol + i); i++) {
@@ -79,7 +80,7 @@ export default class Bishop extends Piece {
         break;
       }
     }
-    //Iterating diagonally towards top-left bottomRight: { row: -1, col: -1 }
+    //Iterating diagonally towards bottom-left, bottomLeft: { row: -1, col: -1 }
     // Bishop pass through friendly pieces or opposing pieces
     // Bishop can take opposing pieces
     for (let i = 1; isValidMove(currentRow - i, currentCol - i); i++) {
