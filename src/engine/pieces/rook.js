@@ -16,97 +16,62 @@ export default class Rook extends Piece {
     const currentCol = location.col;
     const opponentPiece =
       this.player === Player.WHITE ? Player.BLACK : Player.WHITE;
-
+    /*Following is  Horizontal and Vertical Moves logic clearly with different for loops*/
     //Rook Should not move through friendly pieces and opposite pieces
+    let horizontalRookMoves = [],
+      verticalRookMoves = [];
+    for (let i = currentRow + 1; i < GameSettings.BOARD_SIZE; i++) {
+      const rookMove = Square.at(i, location.col);
+      const boardPiece = board.getPiece(rookMove);
 
-    const getForwardMoves = (direction) => {
-      const forwardMoves = [];
-      const currentPosition = direction === "V" ? currentRow : currentCol;
-      for (let i = currentPosition + 1; i < GameSettings.BOARD_SIZE; i++) {
-        const rookMove =
-          direction === "V"
-            ? Square.at(i, currentCol)
-            : Square.at(currentRow, i);
-        const boardPiece = board.getPiece(rookMove);
-
-        if (boardPiece === undefined) forwardMoves.push(rookMove);
-        else {
-          if (
-            boardPiece.player === opponentPiece &&
-            !(boardPiece instanceof King)
-          )
-            forwardMoves.push(rookMove);
-          break;
-        }
+      if (board.getPiece(rookMove) === undefined)
+        verticalRookMoves.push(rookMove);
+      else break;
+    }
+    for (let i = currentRow - 1; i >= 0; i--) {
+      const rookMove = Square.at(i, location.col);
+      const boardPiece = board.getPiece(rookMove);
+      if (boardPiece === undefined) verticalRookMoves.push(rookMove);
+      else {
+        if (
+          boardPiece.player === opponentPiece &&
+          !(boardPiece instanceof King)
+        )
+          verticalRookMoves.push(rookMove);
+        break;
       }
-      return forwardMoves;
-    };
+    }
+    for (let i = currentCol + 1; i < GameSettings.BOARD_SIZE; i++) {
+      const rookMove = Square.at(location.row, i);
+      const boardPiece = board.getPiece(rookMove);
 
-    const getBackwardMoves = (direction) => {
-      const backwardMoves = [];
-      const currentPosition = direction === "V" ? currentRow : currentCol;
-      for (let i = currentPosition - 1; i >= 0; i--) {
-        const rookMove =
-          direction === "V"
-            ? Square.at(i, currentCol)
-            : Square.at(currentRow, i);
-        const boardPiece = board.getPiece(rookMove);
-
-        if (boardPiece === undefined) backwardMoves.push(rookMove);
-        else {
-          if (
-            boardPiece.player === opponentPiece &&
-            !(boardPiece instanceof King)
-          )
-            backwardMoves.push(rookMove);
-          break;
-        }
+      if (boardPiece === undefined) horizontalRookMoves.push(rookMove);
+      else {
+        if (
+          boardPiece.player === opponentPiece &&
+          !(boardPiece instanceof King)
+        )
+          horizontalRookMoves.push(rookMove);
+        break;
       }
-      return backwardMoves;
-    };
+    }
+    for (let i = currentCol - 1; i >= 0; i--) {
+      const rookMove = Square.at(location.row, i);
+      const boardPiece = board.getPiece(rookMove);
 
-    const verticalRookMoves = [
-      ...getForwardMoves("V"),
-      ...getBackwardMoves("V"),
-    ];
-    const horizontalRookMoves = [
-      ...getForwardMoves("H"),
-      ...getBackwardMoves("H"),
-    ];
+      if (boardPiece === undefined) horizontalRookMoves.push(rookMove);
+      else {
+        if (
+          boardPiece.player === opponentPiece &&
+          !(boardPiece instanceof King)
+        )
+          horizontalRookMoves.push(rookMove);
+        break;
+      }
+    }
 
     const validMoves = [...verticalRookMoves, ...horizontalRookMoves];
     //console.log("--->verticalRookMoves", verticalRookMoves);
     return validMoves;
   }
 }
-
-/*Following is  Horizontal and Vertical Moves logic clearly with different for loops*/
-//Rook Should not move through friendly pieces and opposite pieces
-// let horizontalRookMoves = [],
-//   verticalRookMoves = [];
-// for (let i = currentRow + 1; i < GameSettings.BOARD_SIZE; i++) {
-//   const rookMove = Square.at(i, location.col);
-//   if (board.getPiece(rookMove) === undefined)
-//     verticalRookMoves.push(rookMove);
-//   else break;
-// }
-// for (let i = currentRow - 1; i >= 0; i--) {
-//   const rookMove = Square.at(i, location.col);
-//   if (board.getPiece(rookMove) === undefined)
-//     verticalRookMoves.push(rookMove);
-//   else break;
-// }
-// for (let i = currentCol + 1; i < GameSettings.BOARD_SIZE; i++) {
-//   const rookMove = Square.at(location.row, i);
-//   if (board.getPiece(rookMove) === undefined) horizontalRookMoves.push(rookMove);
-//   else break;
-// }
-// for (let i = currentCol - 1; i >= 0; i--) {
-//   const rookMove = Square.at(location.row, i);
-//   if (board.getPiece(rookMove) === undefined) horizontalRookMoves.push(rookMove);
-//   else break;
-// }
-
-//     const validMoves = [...verticalRookMoves, ...horizontalRookMoves];
-//     //console.log("--->verticalRookMoves", verticalRookMoves);
-//     return validMoves;
